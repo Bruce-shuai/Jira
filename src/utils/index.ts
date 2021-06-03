@@ -20,19 +20,8 @@ export const cleanObject = (object: object) => {
 
 // 自定义useDebounce
 // 防抖函数的奥义,利用了闭包~
-// const debounce = (func, delay) => {
-//   let timeout;
-//   return () => {
-//     if (timeout) {
-//       clearTimeout(timeout);
-//     }
-//     timeout = setTimeout(function() {
-//       func();
-//     }, delay);
-//   }
-// }
-
-export const useDebounce = (value: any, delay?: number) => {
+// 注意：箭头函数的泛型书写位置和普通的函数书写位置似乎有些不一样
+export const useDebounce = <T>(value: T, delay?: number) => {
   // react官网： useState(state) React会在重复渲染时保留这个 state
   // react官网：一般来说，在函数退出后变量就会”消失”，而 state 中的变量会被 React 保留。!!
   // react官网：使用的useEffect已经保存在函数作用域中。Hook 使用了 JavaScript 的闭包机制
