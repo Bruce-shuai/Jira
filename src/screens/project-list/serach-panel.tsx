@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 interface SearchPanelProps {
   param: { name: string; personId: string };
   setParam: (param: SearchPanelProps["param"]) => void; // (hooks useState)set系列的ts类型
-  users: { id: string; name: string }[];
+  users: { id: string; name: string; token: string }[];
 }
 
 export const SearchPanel: React.FC<SearchPanelProps> = ({
