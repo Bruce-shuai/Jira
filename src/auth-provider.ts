@@ -20,7 +20,7 @@ export const handleUserResponse = ({
 const apiUrl = process.env.REACT_APP_API_URL;
 export const login = (data: { username: string; password: string }) => {
   // 注意这里的fetch!! 这里和axios好像还真有点不一样呀！  这里的接口视频里没有直接给出。
-  fetch(`${apiUrl}/login`, {
+  return fetch(`${apiUrl}/login`, {
     method: "POST",
     // 请求头，额外给请求头增加的数据。这是之前学过的~
     headers: {
@@ -36,13 +36,15 @@ export const login = (data: { username: string; password: string }) => {
       if (response.ok) {
         // 获取到的数据就只有json吗？
         return handleUserResponse(await response.json());
+      } else {
+        return Promise.reject(data); // reject 接受data 是为什么呢？
       }
     }
   );
 };
 
 export const register = (data: { username: string; password: string }) => {
-  fetch(`${apiUrl}/register`, {
+  return fetch(`${apiUrl}/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -51,9 +53,12 @@ export const register = (data: { username: string; password: string }) => {
   }).then(async (response) => {
     if (response.ok) {
       return handleUserResponse(await response.json());
+    } else {
+      return Promise.reject(data);
     }
   });
 };
 
 // 这些localStorage的操作要好好学学想想~
-export const logout = () => window.localStorage.removeItem(localStorageKey);
+export const logout = async () =>
+  window.localStorage.removeItem(localStorageKey);

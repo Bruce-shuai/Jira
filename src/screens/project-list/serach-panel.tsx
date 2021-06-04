@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
+
+export interface User {
+  id: string;
+  name: string;
+  token: string;
+}
+
 // SearchPanelProps 学习人家的命名规范~
 interface SearchPanelProps {
   param: { name: string; personId: string };
   setParam: (param: SearchPanelProps["param"]) => void; // (hooks useState)set系列的ts类型
-  users: { id: string; name: string; token: string }[];
+  users: User[];
 }
 
 export const SearchPanel: React.FC<SearchPanelProps> = ({
