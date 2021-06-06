@@ -1,33 +1,37 @@
-// 函数组件~
 import { useState, useEffect } from "react";
 import { List } from "./list";
 import { SearchPanel } from "./serach-panel";
 import { cleanObject, useDebounce } from "../../utils";
 import * as qs from "qs";
 
-const apiUrl = process.env.REACT_APP_API_URL; // process.env
+const apiUrl = process.env.REACT_APP_API_URL;
+
 export const ProjectListScreen = () => {
-  // 有点困惑这个param 到底是个什么呀~  应该是请求当前人物的参数~
+  // param应该是请求当前人物的参数~
   const [param, setParam] = useState({
     name: "",
     personId: "",
   });
+  // list 是当前列表数据？
   const [list, setList] = useState([]);
+  // 列表里的所有人数
   const [users, setUsers] = useState([]);
-  // hooks底层原理似乎我在理解上有点问题。
-  // debounceParam似乎不是只生成一次就完事的。可能会不断的生成新的debounceParam
+  // 防抖接口~ 重要！！
   const debounceParam = useDebounce(param, 1000);
-  // 获取项目列表的接口
+  // 获取项目当前列表的接口
   useEffect(() => {
-    console.log("param: 我已有了改变", param);
-    // 弱弱的想问一问，then 里面不应该是同步代码吗？那为什么要用 async 和 await呢？
     fetch(
       `${apiUrl}/projects?${qs.stringify(cleanObject(debounceParam))}`
     ).then(async (response) => {
+      // response是上一个Promise实例数据执行成功后获得的数据
       if (response.ok) {
         console.log("请求发送成功");
-        setList(await response.json());
-        console.log("list: ", list);
+        // ---------------------------------------------------
+        // 此步骤用来测试response.json() 是不是Promis 对象，如果不是，其实就可以不用await
+        console.log("response.json", response.json());
+        // ---------------------------------------------------
+        setList(await response.json()); // 因为要使用await 所以前面包裹了个async。 这里其实可以看做是 Promise.resolve(response.json())
+        console.log("list: ", list); // 这里的数据其实就相当于then里面的回调函数了
       }
     });
     // setList(...list, )
@@ -36,7 +40,6 @@ export const ProjectListScreen = () => {
   useEffect(() => {
     fetch(`${apiUrl}/users`).then(async (response) => {
       if (response.ok) {
-        // 这里的response.json() 有学问~ 有空看看fetch的官网讲解
         setUsers(await response.json());
       }
     });

@@ -1,5 +1,5 @@
 import { useAuth } from "context/auth-context";
-import React, { FormEvent } from "react";
+import React from "react";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 export const RegisterScreen = () => {

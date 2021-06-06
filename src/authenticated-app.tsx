@@ -1,7 +1,7 @@
-import React from "react";
 import { ProjectListScreen } from "./screens/project-list";
 import { useAuth } from "context/auth-context";
 
+// 已登录后的效果~
 export const AuthenticatedApp = () => {
   const { logout } = useAuth();
   return (

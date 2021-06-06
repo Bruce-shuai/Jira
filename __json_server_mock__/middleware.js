@@ -2,7 +2,9 @@
 
 module.exports = (req, res, next) => {
   if (req.method === "POST" && req.path === "/login") {
+    // 这个请求体似乎挺有讲究的~
     if (req.body.username === "jack" && req.body.password === "12345") {
+      // 响应状态
       return res.status(200).json({
         // 这里应该是服务端的操作了吧？！
         user: {
@@ -13,5 +15,5 @@ module.exports = (req, res, next) => {
       return res.status(400).json({ message: "用户名或者密码错误" });
     }
   }
-  next();
+  next(); // 这个是用来干什么的呢？
 };
