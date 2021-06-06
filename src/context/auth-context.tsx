@@ -8,7 +8,6 @@ interface AuthForm {
   password: string;
 }
 
-// 这里说明了 user, register，login, logout 是可以全局使用的吗？
 const AuthContext =
   React.createContext<
     | {
@@ -21,9 +20,9 @@ const AuthContext =
   >(undefined); // 创建一个Context
 AuthContext.displayName = "AuthContext"; // 这个主要是用在devtools里面
 
+// 这里写得好，把AuthContext.Provider 封装成了一个AuthProvider 组件
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
-  // 这里的.then 操作还是不懂啊~
   const login = (form: AuthForm) =>
     auth.login(form).then((user) => setUser(user));
   const register = (form: AuthForm) =>
@@ -40,6 +39,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 };
 
 export const useAuth = () => {
+  /**
+   * useContext 效果：
+   * 接受一个context对象，并返回该context的当前值
+   * context的值是 AuthContext.Provider中value的值即：{user, login, register, logout}
+   * 注意： 调用了 useContext 的组件总会在 context 值变化时重新渲染
+   */
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error("useAuth必须在AuthProvider中使用");

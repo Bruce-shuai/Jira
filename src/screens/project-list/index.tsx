@@ -37,6 +37,7 @@ export const ProjectListScreen = () => {
     // setList(...list, )
   }, [debounceParam]);
 
+  // 加载user数据  ---> 只会加载一次~
   useEffect(() => {
     fetch(`${apiUrl}/users`).then(async (response) => {
       if (response.ok) {
@@ -44,17 +45,6 @@ export const ProjectListScreen = () => {
       }
     });
   }, []);
-
-  // useMount(
-  //   () => {
-  //     fetch(`${apiUrl}/users`).then(async response => {
-  //     if (response.ok) {
-  //       // 这里的response.json() 有学问~ 有空看看fetch的官网讲解
-  //       setUsers(await response.json())
-  //     }
-  //     })
-  //   }
-  // )
 
   return (
     <div>

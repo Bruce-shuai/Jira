@@ -29,9 +29,10 @@ export const login = (data: { username: string; password: string }) => {
     // JSON.stringify用于将 JavaScript 值转换为 JSON 字符串。   这个有什么用呢？
     body: JSON.stringify(data),
   }).then(
-    // 这里的Response 好奇怪呀！ 是怎么来的呢？
+    // 这里的Response 是Promise成功后返回的数据！！
     async (response) => {
       if (response.ok) {
+        // 因为是async函数返回的内容，所以返回的一定是Promise 实例
         return handleUserResponse(await response.json());
       } else {
         return Promise.reject(data);

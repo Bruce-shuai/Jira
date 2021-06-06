@@ -1,15 +1,17 @@
 import React from "react";
+import { User } from "./serach-panel";
 interface List {
   id: string;
   name: string;
-  personId: number;
+  personId: string;
   organization: string;
   create: number;
 }
 interface ListProps {
   list: List[];
-  users: { name: string; id: number }[];
+  users: User[];
 }
+
 export const List: React.FC<ListProps> = ({ list, users }) => {
   // thead 和 tbody 用起来非常显示语义化啊~不错不错~
   return (
