@@ -6,7 +6,7 @@ export const AuthenticatedApp = () => {
   const { logout } = useAuth();
   return (
     <div>
-      {/* 我艹，感觉这个方法似乎还可以~ */}
+      {/* 用得好啊，这个代码逻辑~ */}
       <button onClick={logout}>登出</button>
       <ProjectListScreen />
     </div>

@@ -1,11 +1,14 @@
+// 这个工具是用来干什么的嗯?
 import qs from "qs";
 
 const apiUrl = process.env.REACT_APP_API_URL;
+
 interface Config extends RequestInit {
   // RequestInit 是从哪儿来的呢？
   data?: string;
   token?: object;
 }
+
 export const http = async (
   endpoint: string,
   { data, token, headers, ...customConfig }: Config

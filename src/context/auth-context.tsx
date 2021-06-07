@@ -20,7 +20,7 @@ const AuthContext =
   >(undefined); // 创建一个Context
 AuthContext.displayName = "AuthContext"; // 这个主要是用在devtools里面
 
-// 这里写得好，把AuthContext.Provider 封装成了一个AuthProvider 组件
+// 这里写得好，把AuthContext.Provider 封装成了一个AuthProvider 组件  这里的用法真的可以好好学学
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const login = (form: AuthForm) =>
